@@ -1,4 +1,8 @@
+// DISPLAY PUPILS
+
 const searchInput =document.querySelector("[data-search]")
+
+var call_type = null;
 
 let pupils = []
 searchInput.addEventListener("input", x => {
@@ -14,17 +18,16 @@ searchInput.addEventListener("input", x => {
   })
 })
 
+// GET METHOD
 
 var requestOptions = {
   method: 'GET',
-  redirect: 'follow'
 };
   fetch("https://localhost:44332/api/CrudProject", requestOptions).then(
     response => 
     {
       response.json().then(
         data => {
-          // console.log(data);
           var pupil = "";
           data.map((a) => {
             pupil += `<tr id="${a.firstName}" >`;
@@ -33,12 +36,12 @@ var requestOptions = {
             pupil += "<td>" + a.age + "</td>";
             pupil += "<td>" + a.subject + "</td>";
             pupil += 
-            `<td><button type="submit" class="btn btn-success btn-sm>
-              <i class="bi bi-trash"></i> Edit
+            `<td><button onClick="onUpdate(event)" id="${a.id}" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Update
             </button></td>`;
             pupil += 
-            `<td><button type="submit" class="btn btn-danger btn-sm>
-              <i class="bi bi-trash"></i> Delete
+            `<td><button onClick="onDelete(event)" id="${a.id}" class="btn btn-danger btn-sm">
+              Delete
             </button></td>`;
             pupil += "</tr>"
             pupils.push(a.firstName);
@@ -51,11 +54,58 @@ var requestOptions = {
 
 
 
+  /////////////////////////////////////////////////////////////////////////////////
+
+// PUT METHOD
+
+  function onUpdate(event) {
+    let button = document.getElementById("process");
+    button.setAttribute("event", "update")
+  }
+
+  var raw = "";
+
+  var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+  fetch("https://localhost:44332/api/CrudProject", {
+    method: 'PUT',
+    headers: myHeaders,
+  })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+
+
+
+
+  /////////////////////////////////////////////////////////////////////////////////
+
+// DELETE METHOD
+
+  // function onDelete(td) {
+  //   alert("Welcme")
+  // }
+
+  // var myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/json");
+
+  // fetch("https://localhost:44332/api/CrudProject/id", {
+  //   method: 'DELETE',
+  //   headers: myHeaders,
+  // })
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
+
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////////
+
+// POST METHOD
 
   function readFormData() {
     var formData = {};
@@ -63,56 +113,33 @@ var requestOptions = {
     formData["lastName"] = document.getElementById('inputLname').value;
     formData["age"] = document.getElementById('inputAge').value;
     formData["subject"] = document.getElementById('inputSubject').value;
-    return formData;
+    return JSON.stringify(formData);
   }
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////
 
   const myForm = document.getElementById("myForm");
 
   myForm.addEventListener("submit", function (e) {
     e.preventDefault();
-
-    // let formData = new FormData();
-    // let fname = document.getElementById('inputFname').value;
-    // let lname = document.getElementById('inputLname').value;
-    // let age = document.getElementById('inputAge').value;
-    // let subj = document.getElementById('inputSubject').value;
-
-    // formData.append('FirstName', fname);
-    // formData.append('LastName', lname);
-    // formData.append('Age', age);
-    // formData.append('Subject', subj);
-
     var myHeaders = new Headers();
+    let button = document.getElementById("process");
+    let event = button.getAttribute("event");
     myHeaders.append("Content-Type", "application/json");
-
-    // var raw = JSON.stringify({
-    //   "firstName": document.getElementById('inputFname').value,
-    //   "lastName": document.getElementById('inputLname').value,
-    //   "age": document.getElementById('inputAge').value,
-    //   "subject": document.getElementById('inputSubject').value
-    // });
-
     fetch("https://localhost:44332/api/CrudProject", {
       method: 'POST',
       headers: myHeaders,
       body: readFormData(),
-      // redirect: 'follow'
     }).then(function (response) {
       return response.text();
     }).then(function (text) {
       console.log(text);
-      window.location.reload();
+      if(event === "update"){
+      }else{
+        window.location.reload();
+      }
     }).catch(function (error) {
       console.error(error);
     })
   });
-
 
 
 
