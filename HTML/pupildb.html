@@ -41,6 +41,9 @@
           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi bi-plus-lg"></i> New Pupil
           </button>
+          <button type="button" class="btn btn-info btn-sm" onclick="delPupilsPage()">
+            <i class="bi bi-list-task"></i> Deleted Pupils
+          </button>
         </div>
       </div>
     </div>
@@ -64,6 +67,7 @@
     </div>
   </div>
 
+  <!-- ADD A NEW PUPIL MODAL -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -71,7 +75,6 @@
           <h5 class="modal-title" id="exampleModalLabel">
             Add new Pupil
           </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form class="row g-3" id="myForm">
@@ -101,8 +104,66 @@
     </div>
   </div>
 
+  <!-- UPDATE A PUPIL MODAL -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Update Pupil
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3" id="myUpdate">
+            <div class="col-md-6">
+              <label for="inputFname" class="form-label"><b>FIRST NAME:</b></label>
+              <input type="text" class="form-control" id="inputFname">
+            </div>
+            <div class="col-md-6">
+              <label for="inputLname" class="form-label"><b>LAST NAME:</b></label>
+              <input type="text" class="form-control" id="inputLname">
+            </div>
+            <div class="col-md-6">
+              <label for="inputAge" class="form-label"><b>AGE:</b></label>
+              <input type="number" class="form-control" id="inputAge">
+            </div>
+            <div class="col-md-6">
+              <label for="inputSubject" class="form-label"><b>SUBJECT:</b></label>
+              <input type="text" class="form-control" id="inputSubject">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button id="process" type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE A PUPIL MODAL -->
+  <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="col-md-6">
+            <h5>Delete this pupil?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+            <button id="process" type="submit" class="btn btn-primary">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <br>

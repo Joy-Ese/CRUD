@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deletd Pupils Database</title>
+
+  <link rel="stylesheet" href="../CSS/pupildb.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body class="font-monospace">
+  <div class="container searchDiv">
+    <div class="row">
+      <div class="col-md-8">
+        <h3 class="fs-3">PUPILS DATABASE</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container listDiv">
+    <div class="row">
+      <div class="col-md-8">
+        <h4 class="fs-4">List of Deleted Pupils</h4>
+      </div>
+      <div class="col-md-4">
+        <div class="container iconDiv">
+          <button type="button" class="btn btn-info btn-sm" onclick="pupilsPage()">
+            <i class="bi bi-back"></i> Pupils List
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="table-responsive">
+        <table class="table table-striped text-center">
+          <thead class="text-uppercase">
+            <tr>
+              <th class="">Id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Age</th>
+              <th>Subject</th>
+              <th>Restore</th>
+            </tr>
+          </thead>
+          <tbody id="">
+            <tr>
+              <td>11</td>
+              <td>Hhhhhhhh</td>
+              <td>Jjjjjjjj</td>
+              <td>Aaaaaaaa</td>
+              <td>Cccccccc</td>
+              <td>
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="bi bi-arrow-repeat"></i> Restore
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Hhhhhhhh</td>
+              <td>Jjjjjjjj</td>
+              <td>Aaaaaaaa</td>
+              <td>Cccccccc</td>
+              <td>
+                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <i class="bi bi-arrow-repeat"></i> Restore
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Restore A PUPIL MODAL -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="col-md-6">
+            <h5>Restore this pupil?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+            <button id="process" type="submit" class="btn btn-primary">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <script src="../JS/deleted-pupils.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

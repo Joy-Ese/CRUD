@@ -1,8 +1,16 @@
+
+
+
+function delPupilsPage() {
+  window.location.href="./deleted-pupils.html";
+}
+
+
+
+
 // DISPLAY PUPILS
 
 const searchInput =document.querySelector("[data-search]")
-
-var call_type = null;
 
 let pupils = []
 searchInput.addEventListener("input", x => {
@@ -23,7 +31,8 @@ searchInput.addEventListener("input", x => {
 var requestOptions = {
   method: 'GET',
 };
-  fetch("https://localhost:44332/api/CrudProject", requestOptions).then(
+  fetch("https://localhost:44332/api/CrudProject", requestOptions
+  ).then(
     response => 
     {
       response.json().then(
@@ -36,13 +45,17 @@ var requestOptions = {
             pupil += "<td>" + a.age + "</td>";
             pupil += "<td>" + a.subject + "</td>";
             pupil += 
-            `<td><button onClick="onUpdate(event)" id="${a.id}" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Update
-            </button></td>`;
+            `<td>
+              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                Update
+              </button>
+            </td>`;
             pupil += 
-            `<td><button onClick="onDelete(event)" id="${a.id}" class="btn btn-danger btn-sm">
-              Delete
-            </button></td>`;
+            `<td>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                Delete
+              </button>
+            </td>`;
             pupil += "</tr>"
             pupils.push(a.firstName);
           });
@@ -58,52 +71,57 @@ var requestOptions = {
 
 // PUT METHOD
 
-  function onUpdate(event) {
-    let button = document.getElementById("process");
-    button.setAttribute("event", "update")
-  }
+  // function updateStudentData() {
+  //   var studentData = {};
+  //   studentData["firstName"] = document.getElementById('inputFname').value;
+  //   studentData["lastName"] = document.getElementById('inputLname').value;
+  //   studentData["age"] = document.getElementById('inputAge').value;
+  //   studentData["subject"] = document.getElementById('inputSubject').value;
+  //   return JSON.stringify(studentData);
+  // }
 
-  var raw = "";
+  const myUpdate = document.getElementById("myUpdate");
 
-  var myHeaders = new Headers();
+  myUpdate.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
-  fetch("https://localhost:44332/api/CrudProject", {
-    method: 'PUT',
-    headers: myHeaders,
-  })
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-
-
-
+    fetch(`https://localhost:44332/api/CrudProject`, {
+      method: 'PUT',
+      headers: myHeaders,
+      // body: updateStudentData(),
+    })
+      .then(response => response.text())
+      .then(data => {
+        var pupil = "";
+        data.map((a) => {
+          pupil += `<tr id="${a.id}" >`;
+            pupil += "<td>" + a.firstName + "</td>";
+            pupil += "<td>" + a.lastName + "</td>";
+            pupil += "<td>" + a.age + "</td>";
+            pupil += "<td>" + a.subject + "</td>";
+            pupil += 
+            `<td>
+              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                Update
+              </button>
+            </td>`;
+            pupil += 
+            `<td>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                Delete
+              </button>
+            </td>`;
+            pupil += "</tr>"
+        });
+        myUpdate.innerHTML = pupil;
+      })
+      .catch(error => console.log('error', error));
+  });
 
 
   /////////////////////////////////////////////////////////////////////////////////
 
-// DELETE METHOD
-
-  // function onDelete(td) {
-  //   alert("Welcme")
-  // }
-
-  // var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
-
-  // fetch("https://localhost:44332/api/CrudProject/id", {
-  //   method: 'DELETE',
-  //   headers: myHeaders,
-  // })
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////
 
 // POST METHOD
 
@@ -121,8 +139,6 @@ var requestOptions = {
   myForm.addEventListener("submit", function (e) {
     e.preventDefault();
     var myHeaders = new Headers();
-    let button = document.getElementById("process");
-    let event = button.getAttribute("event");
     myHeaders.append("Content-Type", "application/json");
     fetch("https://localhost:44332/api/CrudProject", {
       method: 'POST',
