@@ -1,12 +1,7 @@
 
-
-
 function delPupilsPage() {
   window.location.href="./deleted-pupils.html";
 }
-
-
-
 
 // DISPLAY PUPILS
 
@@ -40,13 +35,14 @@ var requestOptions = {
           var pupil = "";
           data.map((a) => {
             pupil += `<tr id="${a.firstName}" >`;
+            pupil += `<td class="d-none"> ${a.id} </td>`;
             pupil += "<td>" + a.firstName + "</td>";
             pupil += "<td>" + a.lastName + "</td>";
             pupil += "<td>" + a.age + "</td>";
             pupil += "<td>" + a.subject + "</td>";
             pupil += 
             `<td>
-              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              <button onclick="updateStudentModal('${a.id}', '${a.firstName}', '${a.lastName}', '${a.age}', '${a.subject}')" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 Update
               </button>
             </td>`;
@@ -65,62 +61,57 @@ var requestOptions = {
     }
   );
 
-
-
-  /////////////////////////////////////////////////////////////////////////////////
-
 // PUT METHOD
 
-  // function updateStudentData() {
-  //   var studentData = {};
-  //   studentData["firstName"] = document.getElementById('inputFname').value;
-  //   studentData["lastName"] = document.getElementById('inputLname').value;
-  //   studentData["age"] = document.getElementById('inputAge').value;
-  //   studentData["subject"] = document.getElementById('inputSubject').value;
-  //   return JSON.stringify(studentData);
-  // }
+  function updateStudentModal(id, fname, lname, age, subj) {
+    document.getElementById('inputIdUpdate').value = id;
+    document.getElementById('inputFnameUpdate').value = fname;
+    document.getElementById('inputLnameUpdate').value = lname;
+    document.getElementById('inputAgeUpdate').value = age;
+    document.getElementById('inputSubjectUpdate').value = subj;
+  }
 
   const myUpdate = document.getElementById("myUpdate");
 
   myUpdate.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    var studentData = {};
+    studentData["id"] = document.getElementById('inputIdUpdate').value;
+    studentData["firstName"] = document.getElementById('inputFnameUpdate').value;
+    studentData["lastName"] = document.getElementById('inputLnameUpdate').value;
+    studentData["age"] = document.getElementById('inputAgeUpdate').value;
+    studentData["subject"] = document.getElementById('inputSubjectUpdate').value;
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    fetch(`https://localhost:44332/api/CrudProject`, {
+    fetch(`https://localhost:44332/api/CrudProject/${studentData.id}`, {
       method: 'PUT',
       headers: myHeaders,
-      // body: updateStudentData(),
+      body: JSON.stringify(studentData),
     })
-      .then(response => response.text())
-      .then(data => {
-        var pupil = "";
-        data.map((a) => {
-          pupil += `<tr id="${a.id}" >`;
-            pupil += "<td>" + a.firstName + "</td>";
-            pupil += "<td>" + a.lastName + "</td>";
-            pupil += "<td>" + a.age + "</td>";
-            pupil += "<td>" + a.subject + "</td>";
-            pupil += 
-            `<td>
-              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                Update
-              </button>
-            </td>`;
-            pupil += 
-            `<td>
-              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-                Delete
-              </button>
-            </td>`;
-            pupil += "</tr>"
-        });
-        myUpdate.innerHTML = pupil;
-      })
-      .catch(error => console.log('error', error));
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+    if(event === "update"){
+    }else{
+      window.location.reload();
+    }
   });
 
+/////////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////////////
+// DELETE METHOD
+
+
+
+
+
+
+
+
+
 
 
 // POST METHOD

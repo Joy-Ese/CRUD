@@ -118,23 +118,24 @@
           <form class="row g-3" id="myUpdate">
             <div class="col-md-6">
               <label for="inputFname" class="form-label"><b>FIRST NAME:</b></label>
-              <input type="text" class="form-control" id="inputFname">
+              <input type="text" class="form-control" id="inputFnameUpdate">
+              <input type="text" class="form-control d-none" id="inputIdUpdate">
             </div>
             <div class="col-md-6">
               <label for="inputLname" class="form-label"><b>LAST NAME:</b></label>
-              <input type="text" class="form-control" id="inputLname">
+              <input type="text" class="form-control" id="inputLnameUpdate">
             </div>
             <div class="col-md-6">
               <label for="inputAge" class="form-label"><b>AGE:</b></label>
-              <input type="number" class="form-control" id="inputAge">
+              <input type="number" class="form-control" id="inputAgeUpdate">
             </div>
             <div class="col-md-6">
               <label for="inputSubject" class="form-label"><b>SUBJECT:</b></label>
-              <input type="text" class="form-control" id="inputSubject">
+              <input type="text" class="form-control" id="inputSubjectUpdate">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-              <button id="process" type="submit" class="btn btn-primary">Save</button>
+              <button onclick="updateStudentData()" type="submit" class="btn btn-primary">Save</button>
             </div>
           </form>
         </div>
