@@ -3,7 +3,7 @@ function delPupilsPage() {
   window.location.href="./deleted-pupils.html";
 }
 
-// DISPLAY PUPILS
+// SEARCH PUPIL IN THE SEARCH BOX
 
 const searchInput =document.querySelector("[data-search]")
 
@@ -40,16 +40,19 @@ var requestOptions = {
             pupil += "<td>" + a.lastName + "</td>";
             pupil += "<td>" + a.age + "</td>";
             pupil += "<td>" + a.subject + "</td>";
+            pupil += `<td class=""> ${a.isActive} </td>`;
             pupil += 
             `<td>
-              <button onclick="updateStudentModal('${a.id}', '${a.firstName}', '${a.lastName}', '${a.age}', '${a.subject}')" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                Update
+              <button onclick="updateStudentModal('${a.id}', '${a.firstName}', '${a.lastName}', '${a.age}', '${a.subject}')" 
+                class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                  Update
               </button>
             </td>`;
             pupil += 
             `<td>
-              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-                Delete
+              <button 
+                class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                  Delete
               </button>
             </td>`;
             pupil += "</tr>"
@@ -104,6 +107,46 @@ var requestOptions = {
 
 // DELETE METHOD
 
+  function deleteStudentData(r) {
+    // var button = event.target.parentNode; 
+    // var div = button.parentNode; // the row to be removed
+    // div.parentNode.removeChild(div);
+
+    var p = r.parentNode.parentNode.parentNode.parentNode.parentNode;
+        p.parentNode.removeChild(p);
+  }
+
+
+
+// const deleteStudentData = document.getElementById("deleteStudent");
+
+  // deleteStudentData.addEventListener("submit", function (e) {
+  //   e.preventDefault();
+
+  //   var deletedData = {};
+  //   deletedData["id"] = document.getElementById('inputIdUpdate').value;
+  //   deletedData["firstName"] = document.getElementById('inputFnameUpdate').value;
+  //   deletedData["lastName"] = document.getElementById('inputLnameUpdate').value;
+  //   deletedData["age"] = document.getElementById('inputAgeUpdate').value;
+  //   deletedData["subject"] = document.getElementById('inputSubjectUpdate').value;
+  //   deletedData["isActive"] = document.getElementById('inputSubjectUpdate').value;
+
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/json");
+  //   fetch(`https://localhost:44332/api/CrudProject/${deletedData.id}`, { 
+  //     method: 'DELETE',
+  //     headers: myHeaders,
+  //     // body: JSON.stringify(studentData),
+  //   })
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
+
+  //   // if(event === "update"){
+  //   // }else{
+  //   //   window.location.reload();
+  //   // }
+  // });
 
 
 

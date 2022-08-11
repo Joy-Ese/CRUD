@@ -57,6 +57,7 @@
               <th>Last Name</th>
               <th>Age</th>
               <th>Subject</th>
+              <th class="">IsActive</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -151,9 +152,9 @@
           <div class="col-md-6">
             <h5>Delete this pupil?</h5>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" id="deleteStudent">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-            <button id="process" type="submit" class="btn btn-primary">Yes</button>
+            <button onclick="deleteStudentData(this)" id="deleteStudent" type="submit" class="btn btn-primary">Yes</button>
           </div>
         </div>
       </div>
