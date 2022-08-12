@@ -1,3 +1,5 @@
+let deleteID = 0;
+
 
 function delPupilsPage() {
   window.location.href="./deleted-pupils.html";
@@ -33,7 +35,8 @@ var requestOptions = {
       response.json().then(
         data => {
           var pupil = "";
-          data.map((a) => {
+          data.filter((a) => a.isActive === true)
+          .map((a) => {
             pupil += `<tr id="${a.firstName}" >`;
             pupil += `<td class="d-none"> ${a.id} </td>`;
             pupil += "<td>" + a.firstName + "</td>";
@@ -43,14 +46,15 @@ var requestOptions = {
             pupil += `<td class=""> ${a.isActive} </td>`;
             pupil += 
             `<td>
-              <button onclick="updateStudentModal('${a.id}', '${a.firstName}', '${a.lastName}', '${a.age}', '${a.subject}')" 
+              <button 
+                onclick="updateStudentModal('${a.id}', '${a.firstName}', '${a.lastName}', '${a.age}', '${a.subject}')" 
                 class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                   Update
               </button>
             </td>`;
             pupil += 
             `<td>
-              <button 
+              <button onclick="deleteID = ${a.id}"
                 class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                   Delete
               </button>
@@ -96,66 +100,23 @@ var requestOptions = {
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
-
-    if(event === "update"){
-    }else{
-      window.location.reload();
-    }
+    window.location.reload();
   });
-
-/////////////////////////////////////////////////////////////////////////////////
 
 // DELETE METHOD
 
-  function deleteStudentData(r) {
-    // var button = event.target.parentNode; 
-    // var div = button.parentNode; // the row to be removed
-    // div.parentNode.removeChild(div);
-
-    var p = r.parentNode.parentNode.parentNode.parentNode.parentNode;
-        p.parentNode.removeChild(p);
+  function deleteStudentData() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    fetch(`https://localhost:44332/api/CrudProject/${deleteID}`, {
+      method: 'DELETE',
+      headers: myHeaders
+    })
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+    window.location.reload();
   }
-
-
-
-// const deleteStudentData = document.getElementById("deleteStudent");
-
-  // deleteStudentData.addEventListener("submit", function (e) {
-  //   e.preventDefault();
-
-  //   var deletedData = {};
-  //   deletedData["id"] = document.getElementById('inputIdUpdate').value;
-  //   deletedData["firstName"] = document.getElementById('inputFnameUpdate').value;
-  //   deletedData["lastName"] = document.getElementById('inputLnameUpdate').value;
-  //   deletedData["age"] = document.getElementById('inputAgeUpdate').value;
-  //   deletedData["subject"] = document.getElementById('inputSubjectUpdate').value;
-  //   deletedData["isActive"] = document.getElementById('inputSubjectUpdate').value;
-
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
-  //   fetch(`https://localhost:44332/api/CrudProject/${deletedData.id}`, { 
-  //     method: 'DELETE',
-  //     headers: myHeaders,
-  //     // body: JSON.stringify(studentData),
-  //   })
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
-
-  //   // if(event === "update"){
-  //   // }else{
-  //   //   window.location.reload();
-  //   // }
-  // });
-
-
-
-
-
-
-
-
-
 
 // POST METHOD
 
@@ -190,11 +151,4 @@ var requestOptions = {
       console.error(error);
     })
   });
-
-
-
-
-
-
-
 
